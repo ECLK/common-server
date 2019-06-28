@@ -137,5 +137,5 @@ typings/
 
 # Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
 
-# keeping away the dist folder having unused files
-.dist/**/*
+# keeping the dist folder clean 
+dist/
