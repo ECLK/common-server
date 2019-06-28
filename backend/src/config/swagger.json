@@ -1,0 +1,30 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0"
+    },
+    "host": "localhost:3000",
+    "basePath": "/api/v1",
+    "schemes": ["http"],
+    "produces": ["application/json"],
+    "paths": {
+        "/users": {
+            "get": {
+                "tags": ["users"],
+                "summary": "Get all users",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "content": {
+                    "application/json": {}
+                },
+                "parameters": []
+            }
+        }
+    }
+}
