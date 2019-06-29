@@ -1,14 +1,42 @@
 {
     "swagger": "2.0",
     "info": {
-        "version": "1.0.0"
+        "description": "Election related information repository.",
+        "version": "1.0.0",
+        "title": "Election Common Server"
     },
     "host": "localhost:3000",
     "basePath": "/api/v1",
-    "schemes": ["http"],
+    "schemes": ["http", "https"],
     "produces": ["application/json"],
     "paths": {
         "/users": {
+            "post": {
+                "tags": ["users"],
+                "summary": "Add new user",
+                "parameters":[
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User object to be saved",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK"
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                },
+                "content": {
+                    "application/json": {}
+                }
+            },
             "get": {
                 "tags": ["users"],
                 "summary": "Get all users",
@@ -20,10 +48,27 @@
                         "description": "Bad request"
                     }
                 },
-                "content": {
-                    "application/json": {}
-                },
                 "parameters": []
+            }
+        }
+    },
+    "definitions": {
+        "User": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "isActive": {
+                    "type": "boolean",
+                    "description": "User Status"
+                }
             }
         }
     }
