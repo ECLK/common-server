@@ -3,7 +3,7 @@ import express from "express";
 import { applyMiddleware, applyRoutes } from "./utils";
 import middleware from "./middleware";
 import errorHandlers from "./middleware/errorHandlers";
-import routes from "./services";
+import routes from "./routes";
 import createDbConnection from "./config/database";
 import dotenv from "dotenv";
 
@@ -25,7 +25,7 @@ applyMiddleware(middleware, router);
 applyRoutes(routes, router);
 applyMiddleware(errorHandlers, router);
 
-// create database connection using ormconfig.json file
+// initiate database connection 
 createDbConnection();
 
 const { PORT = 3000 } =  process.env;
