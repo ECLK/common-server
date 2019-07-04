@@ -25,7 +25,7 @@ applyMiddleware(middleware, router);
 applyRoutes(routes, router);
 applyMiddleware(errorHandlers, router);
 
-// create database connection using ormconfig.json file
+// initiate database connection 
 createDbConnection();
 
 const { PORT = 3000 } =  process.env;

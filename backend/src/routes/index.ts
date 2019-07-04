@@ -1,3 +1,3 @@
 import userRoutes from "./User.route";
 
-export default[...userRoutes];
+export default [...userRoutes];

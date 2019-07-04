@@ -1,24 +1,24 @@
 import { Request, Response } from "express";
-import { getUsers, addUser, getUserById } from "../services/user/userService";
+import { UserService } from "../services";
 
 export default [
-    {
-        path: "/api/v1/users",
-        method: "post",
-        handler: [
-            async (req: Request, res: Response) => {
-                const result = await addUser(req.body);
-                res.status(201).send(result);
-            }
-        ]
-    },
     {
         path: "/api/v1/users",
         method: "get",
         handler: [
             async (req: Request, res: Response) => {
-                const result = await getUsers();
+                const result = await new UserService().getUsers();
                 res.status(200).send(result);
+            }
+        ]
+    },
+    {
+        path: "/api/v1/users",
+        method: "post",
+        handler: [
+            async (req: Request, res: Response) => {
+                const result = await new UserService().addUser(req.body);
+                res.status(201).send(result);
             }
         ]
     },
@@ -27,7 +27,7 @@ export default [
         method: "get",
         handler: [
             async (req: Request, res: Response) => {
-                const result = await getUserById(req);
+                const result = await new UserService().getUserById(req);
                 res.status(200).send(result);
             }
         ]

@@ -1,3 +1,5 @@
-import userRoutes from "./user/userRoutes";
+import { UserService } from "./User.service";
 
-export default [...userRoutes];
+export { 
+    UserService 
+};
