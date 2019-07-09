@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { UserService } from "../services";
+import { checkUrlSchema } from "./schema/User.schema";
 
 export default [
     {
@@ -26,6 +27,7 @@ export default [
         path: "/api/v1/users/:id",
         method: "get",
         handler: [
+            checkUrlSchema,
             async (req: Request, res: Response) => {
                 const result = await new UserService().getUserById(req);
                 res.status(200).send(result);
