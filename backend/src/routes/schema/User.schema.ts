@@ -7,7 +7,7 @@ import { HTTP400Error } from '../../utils/httpErrors';
  * URL pattern parameter value validation
  */
 const URL_SCHEMA = Joi.object().keys({
-    id: Joi.number().required()
+    userId: Joi.number().required()
 });
 
 export const checkUrlSchema = (req: Request, res: Response, next: NextFunction) => {

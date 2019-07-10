@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
 import { UserRepository } from "../repository/UserRepository";
 import { User } from "../entity/User";
+import { HTTP404Error } from "../utils/httpErrors";
 
 export class UserService {
     private userRepository: UserRepository;
@@ -21,8 +22,12 @@ export class UserService {
     }
 
     public async getUserById(req: Request){
-        const userId: number = req.params.id;
-        const user = this.userRepository.findOne({ id: userId});
+        const userId: number = req.params.userId;
+        const user = await this.userRepository.findOneOrFail({ 
+            id: userId
+        }).catch( err => {
+            return err;
+        });
         return user;
     }
 

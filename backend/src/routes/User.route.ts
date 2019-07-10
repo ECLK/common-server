@@ -25,13 +25,17 @@ export default [
         ]
     },
     {
-        path: "/api/v1/users/:id",
+        path: "/api/v1/users/:userId",
         method: "get",
         handler: [
             checkUrlSchema,
             async (req: Request, res: Response) => {
                 const result = await new UserService().getUserById(req);
-                res.status(200).send(result);
+                if (typeof(result.id) === "undefined"){
+                    res.status(404).send("User not found.");
+                } else {
+                    res.status(200).send(result);
+                }
             }
         ]
     }
