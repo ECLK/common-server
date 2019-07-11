@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
 import { UserRepository } from "../repository/UserRepository";
 import { User } from "../entity/User";
-import { HTTP404Error } from "../utils/httpErrors";
+import { HTTP404Error, HTTP500Error } from "../utils/httpErrors";
 
 export class UserService {
     private userRepository: UserRepository;
@@ -12,23 +12,31 @@ export class UserService {
     }
 
     public async getUsers() {
-        const userList = this.userRepository.find();
-        return userList;
+        try {
+            const userList = this.userRepository.find();
+            return userList;
+        } catch (error) {
+            throw new HTTP404Error("Users not found")
+        }
     }
 
     public async addUser(user: User) {
-        const result = this.userRepository.save(user);
-        return user;
+        try {
+            const result = await this.userRepository.save(user);
+            return result;
+        } catch (error) {
+            throw new HTTP500Error();
+        }
     }
 
     public async getUserById(req: Request){
-        const userId: number = req.params.userId;
-        const user = await this.userRepository.findOneOrFail({ 
-            id: userId
-        }).catch( err => {
-            return err;
-        });
-        return user;
+        try {
+            const userId: number = req.params.userId;
+            const user = await this.userRepository.findOneOrFail({ id: userId});
+            return user;
+        } catch (error) {
+            throw new HTTP404Error("User not found");
+        }
     }
 
 }
