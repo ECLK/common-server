@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services";
 import { checkUrlSchema, checkPostDataSchema } from "./schema/User.schema";
 
@@ -7,9 +7,10 @@ export default [
         path: "/api/v1/users",
         method: "get",
         handler: [
-            async (req: Request, res: Response) => {
-                const result = await new UserService().getUsers();
-                res.status(200).send(result);
+            async (req: Request, res: Response, next: NextFunction) => {
+                return new UserService().getUsers()
+                    .then((result) => res.status(200).send(result))
+                    .catch(error => next(error));
             }
         ]
     },
@@ -18,9 +19,10 @@ export default [
         method: "post",
         handler: [
             checkPostDataSchema,
-            async (req: Request, res: Response) => {
-                const result = await new UserService().addUser(req.body);
-                res.status(201).send(result);
+            async (req: Request, res: Response, next: NextFunction) => {
+                return new UserService().addUser(req.body)
+                    .then((result) => res.status(200).send(result))
+                    .catch(error => next(error));
             }
         ]
     },
@@ -29,13 +31,10 @@ export default [
         method: "get",
         handler: [
             checkUrlSchema,
-            async (req: Request, res: Response) => {
-                const result = await new UserService().getUserById(req);
-                if (typeof(result.id) === "undefined"){
-                    res.status(404).send("User not found.");
-                } else {
-                    res.status(200).send(result);
-                }
+            async (req: Request, res: Response, next: NextFunction) => {
+                return new UserService().getUserById(req)
+                    .then((result) => res.status(200).send(result))
+                    .catch(error => next(error));
             }
         ]
     }

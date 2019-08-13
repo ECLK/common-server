@@ -11,7 +11,7 @@ const URL_SCHEMA = Joi.object().keys({
 });
 
 export const checkUrlSchema = (req: Request, res: Response, next: NextFunction) => {
-    const { error, value } = Joi.validate(req.params, URL_SCHEMA);
+    const { error } = Joi.validate(req.params, URL_SCHEMA);
     if (error != null) {
         throw new HTTP400Error(error.details[0].message);
     } else {
@@ -30,7 +30,7 @@ const POST_SCHEMA = Joi.object().keys({
 });
 
 export const checkPostDataSchema = (req: Request, res: Response, next: NextFunction) => {
-    const { error, value } = Joi.validate(req.body, POST_SCHEMA);
+    const { error } = Joi.validate(req.body, POST_SCHEMA);
     if (error != null) {
         throw new HTTP400Error(error.details[0].message);
     } else {
