@@ -1,12 +1,12 @@
 import { Response, NextFunction } from "express";
-import { HTTPClientError, HTTP404Error } from "../utils/httpErrors";
+import { HTTPError, HTTP404Error } from "../utils/httpErrors";
 
 export const notFoundError = () => {
     throw new HTTP404Error("Method not found.");
 }
 
 export const clientError = (err: Error, res: Response, next: NextFunction) => {
-    if (err instanceof HTTPClientError) {
+    if (err instanceof HTTPError) {
         console.warn(err);
         res.status(err.statusCode).send(err.message);
     } else {
