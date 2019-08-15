@@ -5,7 +5,7 @@
         "version": "1.0.0",
         "title": "Election Common Server"
     },
-    "host": "localhost:3000",
+    "host": "localhost:8001",
     "basePath": "/api/v1",
     "schemes": ["http", "https"],
     "produces": ["application/json"],
