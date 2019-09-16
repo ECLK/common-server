@@ -1,2 +1,2 @@
 # common-server
-Election related information repository
+Election related information repository.
