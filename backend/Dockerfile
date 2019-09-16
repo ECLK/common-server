@@ -1,11 +1,19 @@
-FROM node:10.13-alpine
-ENV NODE_ENV production
-RUN mkdir -p /app
+FROM python:3.7.3-alpine
+
+# stop generationg byte codes (.pyc)
+ENV PYTHONDONTWRITEBYTECODE 1
+# to disable output buffering
+ENV PYTHONUNBUFFERED 1
+
+RUN mkdir -p /app/src
 
 WORKDIR /app
-ADD . /app
+COPY ./requirements.txt /app
+COPY ./manage.py /app
+COPY ./src /app/src
 
-RUN npm install --production --silent
+RUN pip install -r requirements.txt
 
-EXPOSE 8001
-CMD npm run dev
+EXPOSE 8000
+
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
