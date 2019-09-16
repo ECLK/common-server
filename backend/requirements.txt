@@ -1,0 +1,5 @@
+Django==2.2.5  
+django-filter==2.2.0  
+djangorestframework==3.10.3
+mysql-connector-python==8.0.17
+python-dotenv==0.10.3 
